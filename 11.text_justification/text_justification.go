@@ -32,25 +32,25 @@ type wordGroup struct {
 	last     bool
 }
 
-func covertEachArray(wG *wordGroup, maxWidth int) string {
+func covertEachArray(wg *wordGroup, maxWidth int) string {
 	var result string
 
-	if wG.last == false {
-		var spaces = make([]string, len(wG.groups)-1)
-		for i := 0; i < (maxWidth - wG.totalLen); i++ {
+	if wg.last == false {
+		var spaces = make([]string, len(wg.groups)-1)
+		for i := 0; i < (maxWidth - wg.totalLen); i++ {
 			spaces[i%len(spaces)] = spaces[i%len(spaces)] + " "
 		}
-		for i := 0; i < len(wG.groups)-1; i++ {
-			result = result + wG.groups[i] + spaces[i]
+		for i := 0; i < len(wg.groups)-1; i++ {
+			result = result + wg.groups[i] + spaces[i]
 		}
-		result = result + wG.groups[len(wG.groups)-1]
+		result = result + wg.groups[len(wg.groups)-1]
 	}
-	if wG.last == true {
+	if wg.last == true {
 		space := ""
-		for i := 0; i < len(wG.groups)-1; i++ {
-			result = result + wG.groups[i] + " "
+		for i := 0; i < len(wg.groups)-1; i++ {
+			result = result + wg.groups[i] + " "
 		}
-		result = result + wG.groups[len(wG.groups)-1]
+		result = result + wg.groups[len(wg.groups)-1]
 		for i := 0; i < (maxWidth - len(result)); i++ {
 			space = space + " "
 		}
@@ -63,35 +63,34 @@ func covertEachArray(wG *wordGroup, maxWidth int) string {
 
 func fullJustify(words []string, maxWidth int) []string {
 	wordGroups := []*wordGroup{}
-	wG := &wordGroup{last: false}
+	wg := &wordGroup{last: false}
 	result := []string{}
 	for i, word := range words {
-		if len(wG.groups) == 0 {
-			wG.groups = append(wG.groups, word)
-			wG.totalLen += len(word)
-		} else if len(wG.groups) == 1 && len(word) <= maxWidth-wG.totalLen-1 {
-			wG.groups = append(wG.groups, word)
-			wG.totalLen += len(word)
-		} else if len(wG.groups) == 1 && len(word) > maxWidth-wG.totalLen-1 {
-			wG.last = true
-			wordGroups = append(wordGroups, wG)
-			wG = &wordGroup{groups: []string{word}, totalLen: len(word), last: false}
-		} else if len(word) < maxWidth-wG.totalLen-len(wG.groups)+1 {
-			wG.groups = append(wG.groups, word)
-			wG.totalLen += len(word)
+		if len(wg.groups) == 0 {
+			wg.groups = append(wg.groups, word)
+			wg.totalLen += len(word)
+		} else if len(wg.groups) == 1 && len(word) <= maxWidth-wg.totalLen-1 {
+			wg.groups = append(wg.groups, word)
+			wg.totalLen += len(word)
+		} else if len(wg.groups) == 1 && len(word) > maxWidth-wg.totalLen-1 {
+			wg.last = true
+			wordGroups = append(wordGroups, wg)
+			wg = &wordGroup{groups: []string{word}, totalLen: len(word), last: false}
+		} else if len(word) < maxWidth-wg.totalLen-len(wg.groups)+1 {
+			wg.groups = append(wg.groups, word)
+			wg.totalLen += len(word)
 		} else {
-			wordGroups = append(wordGroups, wG)
-			wG = &wordGroup{groups: []string{word}, totalLen: len(word), last: false}
+			wordGroups = append(wordGroups, wg)
+			wg = &wordGroup{groups: []string{word}, totalLen: len(word), last: false}
 		}
 		if i == len(words)-1 {
-
-			wG.last = true
-			fmt.Println(wG)
-			wordGroups = append(wordGroups, wG)
+			wg.last = true
+			fmt.Println(wg)
+			wordGroups = append(wordGroups, wg)
 		}
 	}
-	for _, wG := range wordGroups {
-		eachResult := covertEachArray(wG, maxWidth)
+	for _, wg := range wordGroups {
+		eachResult := covertEachArray(wg, maxWidth)
 		result = append(result, eachResult)
 	}
 	return result
