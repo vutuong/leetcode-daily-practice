@@ -5,8 +5,22 @@ import (
 	"strings"
 )
 
-// input = "adceb"
-// p = "*a*b"
+/*
+44. Wildcard Matching Hard
+
+Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:
+
+'?' Matches any single character.
+'*' Matches any sequence of characters (including the empty sequence).
+The matching should cover the entire input string (not partial).
+
+Example 1:
+
+Input: s = "aa", p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+
+*/
 
 func isMatch(s string, p string) bool {
 	str := strings.Split(s, "")
@@ -40,7 +54,7 @@ func isMatch(s string, p string) bool {
 		}
 	}
 
-	// create two dimension slice for dynamic programing
+	// Create two dimension slice for dynamic programing
 	dP := make([][]bool, len(str)+1)
 	for i := range dP {
 		dP[i] = make([]bool, writeIndex+1)
@@ -52,19 +66,9 @@ func isMatch(s string, p string) bool {
 	// This solution is ref to
 	// https://www.youtube.com/watch?v=3ZDZ-N0EPV0&ab_channel=TusharRoy-CodingMadeSimple&fbclid=IwAR3Y4MV0U7fJVPWpcUKs-FuxDbgW3u4DbuLN8qmiIPHcd3FQ-Ixkwxg_XXY
 	dP[0][0] = true
-	// for j := 1; j <= len(p); j++ {
-	// 	if p[j-1] == '*' {
-	// 		dP[0][j] = dP[0][j-1]
-	// 	}
-	// }
 
 	for i := 1; i < len(dP); i++ {
 		for j := 1; j < len(dP[0]); j++ {
-			// if p[j-1] == '*' {
-			// 	dP[i][j] = dP[i][j-1] || dP[i-1][j]
-			// } else if p[j-1] == '?' || p[j-1] == s[i-1] {
-			// 	dP[i][j] = dP[i-1][j-1]
-			// }
 			if pattern[j-1] == "?" || str[i-1] == pattern[j-1] {
 				dP[i][j] = dP[i-1][j-1]
 			} else if pattern[j-1] == "*" {
