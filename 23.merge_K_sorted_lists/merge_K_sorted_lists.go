@@ -13,6 +13,9 @@ https://leetcode.com/problems/merge-k-sorted-lists/
 
 	Merge all the linked-lists into one sorted linked-list and return it.
 */
+
+// You can find the test-case at daily challenges Week 4: January 22nd - January 28th -2021
+// https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/582/week-4-january-22nd-january-28th/3615/
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	result := &ListNode{}
 	if l1 == nil && l2 != nil {
