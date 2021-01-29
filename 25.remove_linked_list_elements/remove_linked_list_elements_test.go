@@ -20,7 +20,7 @@ func compareResult(r1, r2 *ListNode) bool {
 	return ok
 }
 
-func testSum(t *testing.T) {
+func TestSum(t *testing.T) {
 	l1 := &ListNode{
 		Val: 1,
 		Next: &ListNode{
