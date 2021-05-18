@@ -14,11 +14,11 @@ class Solution:
                 if dp[j] and s[j:i] in wordDict:
                     dp[i] = True
                     break
-
         return dp[-1]
 
-test  = Solution()
-print(test.wordBreak("leetcode", ["leet","code"]))
-
-print(test.wordBreak("applepenapple", ["apple","pen"]))
-print(test.wordBreak("catsandog", ["cats","dog","sand","and","cat"]))
+'''
+Complexity Analysis:
+    Assume that the string length is n
+    I used two loops, so that the time complexity is O(n^2) 
+    Since the dynamic programing is applied, Space complexity is S O(n), which needs to construc the dp array.
+'''
